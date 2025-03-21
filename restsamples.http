@@ -1,0 +1,32 @@
+### Local Development
+
+## Service to service invocation to csharp app (A and B)
+## Invoke method via React form frontend
+POST http://localhost:8080/invoke HTTP/1.1
+content-type: application/json
+
+{ "messageType": "B", "message": "Service invocation to method B" }
+
+### Pub/sub to python subscriber (A and C)
+## Publish message via react form
+POST http://localhost:8080/publish HTTP/1.1
+content-type: application/json
+
+{ "messageType": "C", "message": "Pub/sub to topic C" }
+
+### Kubernetes 
+@reactForm = 34.83.221.26
+
+## Service to service invocation to csharp app
+## Invoke method via React form frontend
+POST http://{{reactForm}}:80/invoke HTTP/1.1
+content-type: application/json
+
+{ "messageType": "A", "message": "VSCode Service invocation to method A" }
+
+### Pub/sub
+## React publisher
+POST http://{{reactForm}}:80/publish HTTP/1.1
+content-type: application/json
+
+{ "messageType": "A", "message": "VSCode Publishing message via pub/sub to topic A" }

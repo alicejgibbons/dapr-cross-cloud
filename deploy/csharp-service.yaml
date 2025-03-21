@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csharp-service
+  labels:
+    app: csharp-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csharp-service
+  template:
+    metadata:
+      labels:
+        app: csharp-service
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "csharp-service"
+        dapr.io/app-port: "5009"
+        dapr.io/log-level: "debug"
+    spec:
+      containers:
+      - name: csharp-service
+        image: us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/csharp-service:latest
+        ports:
+        - containerPort: 5009
+        imagePullPolicy: Always
