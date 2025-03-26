@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: csharp-service
+  namespace: dapr-cross-cloud
   labels:
     app: csharp-service
 spec:
@@ -21,7 +22,7 @@ spec:
     spec:
       containers:
       - name: csharp-service
-        image: us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/csharp-service:latest
+        image: europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/csharp-service:latest
         ports:
         - containerPort: 5009
         imagePullPolicy: Always

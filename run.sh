@@ -1,15 +1,15 @@
 cd react-form/
-docker buildx build --platform linux/amd64 -t us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/react-form:latest .
-docker push us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/react-form:latest 
+docker buildx build --platform linux/amd64 -t europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/react-form:latest .
+docker push europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/react-form:latest
 
 cd csharp-service/
 dotnet publish -c Release -o out
-docker buildx build --platform linux/amd64 -t us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/csharp-service:latest .
-docker push us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/csharp-service:latest  
+docker buildx build --platform linux/amd64 -t europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/csharp-service:latest .
+docker push europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/csharp-service:latest 
 
 cd python-subscriber
-docker buildx build --platform linux/amd64 -t us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/python-subscriber:latest .
-docker push us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/python-subscriber:latest   
+docker buildx build --platform linux/amd64 -t europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/python-subscriber:latest .
+docker push europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/python-subscriber:latest
 
 # Dapr running locally:
 # Installed the Dapr CLI, and have the containers running - Show dockerhub

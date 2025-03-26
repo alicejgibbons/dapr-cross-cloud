@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: python-subscriber
+  namespace: dapr-cross-cloud
   labels:
     app: python-subscriber
 spec:
@@ -20,7 +21,7 @@ spec:
     spec:
       containers:
       - name: python-subscriber
-        image:  us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/python-subscriber:latest
+        image:  europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/python-subscriber:latest
         ports:
         - containerPort: 5001
         imagePullPolicy: Always

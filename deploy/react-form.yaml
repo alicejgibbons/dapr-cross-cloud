@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: react-form
+  namespace: dapr-cross-cloud
   labels:
     app: react-form
 spec:
@@ -36,7 +37,7 @@ spec:
     spec:
       containers:
       - name: react-form
-        image: us-central1-docker.pkg.dev/prj-common-d-shared-89549/reg-d-common-docker-public/pub-sub-demo/react-form:latest
+        image: europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/react-form:latest
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
