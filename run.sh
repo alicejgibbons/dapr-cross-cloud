@@ -1,3 +1,4 @@
+# K8s docker images
 cd react-form/
 docker buildx build --platform linux/amd64 -t europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/react-form:latest .
 docker push europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/react-form:latest
@@ -11,18 +12,22 @@ cd python-subscriber
 docker buildx build --platform linux/amd64 -t europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/python-subscriber:latest .
 docker push europe-west1-docker.pkg.dev/prj-dataplane-n-demo-30534/kubecon-demo-registry/python-subscriber:latest
 
+# Create namespace
+k create ns dapr-cross-cloud 
+
+# Helm Redis install
+helm install redis bitnami/redis -n redis --create-namespace
+export REDIS_PASSWORD=$(kubectl get secret --namespace redis redis -o jsonpath="{.data.redis-password}" | base64 -d)
+echo $REDIS_PASSWORD
+kubectl create secret generic redis-password --from-literal=redis-password=$REDIS_PASSWORD -n dapr-cross-cloud
+
+# Deploy apps
+
+
 # Dapr running locally:
-# Installed the Dapr CLI, and have the containers running - Show dockerhub
-dapr --version
-
-## SVC INVOKE
-# Show code for both apps
-# Run apps - svc invoke: 
-# cd react-form 
-# dapr run --app-id react-form --app-port 8080 npm run start
-
-# cd csharp-service/
-# dapr run --app-id csharp-service --app-port 5009 dotnet run
+cd react-form/
+npm install
+dapr run --app-id react-form --app-port 8080 --resources-path /Users/alicegibbons/repos/pubsub-svc-example/deploy/components/local npm run start
 
 ## PUBSUB
 # Show code for both apps
@@ -30,22 +35,6 @@ dapr --version
 dapr run --app-id react-form --app-port 8080 --resources-path /Users/alicegibbons/repos/pubsub-svc-example/deploy/components/local npm run start
 dapr run --app-id python-subscriber --app-port 5001 --resources-path /Users/alicegibbons/repos/pubsub-svc-example/deploy/components/local python3 app.py
 # show a message sending in the UI to pub sub 
-
-# component swap
-dapr run --app-id react-form --app-port 8080 --resources-path /Users/alicegibbons/repos/pubsub-svc-example/deploy/components/aks npm run start
-dapr run --app-id python-subscriber --app-port 5001 --resources-path /Users/alicegibbons/repos/pubsub-svc-example/deploy/components/aks python3 app.py
-
-# k8s:
-## K8s show control plane:
-
-k get all -n dapr-system
-k get po  # 2 containers one for dapr and one for app
-k get components
-
-# Use rest samples to send messages
-# send a message on A or C watch logs in react publisher and python subscriber
-
-
 
 ##OLD: 
 # Try using the Dapr CLI
